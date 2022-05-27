@@ -13,22 +13,17 @@ that has the following roles:
 
 Steps to do so are in the detailed [guide](guide.md).
 
-Clone this repo:
+Then, in your VM, clone this repo:
 
 ```
 $ git clone <TODO: replace with repo url>
+$ cd <dir>
 ```
 
 Then set your GCP project environment variable:
 
 ```
 $ export GOOGLE_CLOUD_PROJECT=my-project
-```
-
-Then download the Otel collector:
-
-```
-$ make download
 ```
 
 Run the Collector:

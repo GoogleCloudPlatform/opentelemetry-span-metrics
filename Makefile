@@ -20,22 +20,28 @@ clean:
 	kill `cat ${OUTPUT_DIR}/.serverpid`
 	rm -rf otelcol-contrib/
 
-.PHONY: download
-download:
+.PHONY: run-collector
+run-collector:
 	mkdir otelcol-contrib
 	curl -OL --output-dir ${OUTPUT_DIR} https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v${OTEL_VERSION}/otelcol-contrib_${OTEL_VERSION}_linux_amd64.tar.gz
 	tar -xvf otelcol-contrib/otelcol-contrib_${OTEL_VERSION}_linux_amd64.tar.gz -C ${OUTPUT_DIR}
-
-.PHONY: run-collector
-run-collector:
 	sed s/%GOOGLE_CLOUD_PROJECT%/${GOOGLE_CLOUD_PROJECT}/g config.yaml > ${OUTPUT_DIR}/config.yaml
 	./${OUTPUT_DIR}/otelcol-contrib --config=${OUTPUT_DIR}/config.yaml
 
-.PHONY: run-demo
-run-demo:
+.PHONY: setup
+setup:
 	git clone https://github.com/open-telemetry/opentelemetry-collector-contrib.git ${OUTPUT_DIR}/opentelemetry-collector-contrib
 	cd ${OUTPUT_DIR}/opentelemetry-collector-contrib/examples/demo/server && go build -o ../../../../server main.go
 	cd ${OUTPUT_DIR}/opentelemetry-collector-contrib/examples/demo/client && go build -o ../../../../client main.go
+
+.PHONY: server
+server:
 	./${OUTPUT_DIR}/server & echo $$! > ./${OUTPUT_DIR}/.serverpid
+	sleep 2 # wait for server to be running
+
+.PHONY: client
+client:
 	./${OUTPUT_DIR}/client
 
+.PHONY: run-demo
+run-demo: setup server client
