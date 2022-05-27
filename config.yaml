@@ -24,8 +24,8 @@ processors:
     spike_limit_mib: 800
   batch:
     # Google Cloud Monitoring limits batches to 200 metric points.
-    send_batch_max_size: 200
-    send_batch_size: 200
+    send_batch_max_size: 20
+    send_batch_size: 20
     timeout: 60s
   spanmetrics:
     metrics_exporter: googlecloud
