@@ -22,6 +22,24 @@ $ gcloud projects add-iam-policy-binding $GOOGLE_CLOUD_PROJECT --member "service
 
 Or, use similar commands above to add these roles to your instance's service account if one already exists.
 
+### Running outside of GCE
+
+If you are running the sample outside of a GCE VM which does not automatically have access to the GCE
+metadata server, you can still authenticate the OpenTelemetry Collector with the service account key.
+
+To do this, first export your service account's key to a JSON file (see [IAM documentation](https://cloud.google.com/iam/docs/creating-managing-service-account-keys)).
+
+Place this JSON file in a location and set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable
+to the file's path:
+
+```
+$ export GOOGLE_APPLICATION_CREDENTIALS=/path/to/key.json
+```
+
+Alternatively, you can run `gcloud auth application-default login`, which authenticates via a web flow
+and places the credentials in `$HOME/.config/gcloud/application_default_credentials.json` (you should not
+set `GOOGLE_APPLICATION_CREDENTIALS` if running this way).
+
 ## Download and run the OpenTelemetry Collector
 
 Find the Collector binary for your architecture at https://github.com/open-telemetry/opentelemetry-collector-releases/releases/latest 

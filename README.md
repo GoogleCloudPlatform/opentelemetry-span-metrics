@@ -11,7 +11,9 @@ that has the following roles:
 * `roles/monitoring.metricWriter`
 * `roles/cloudtrace.agent`
 
-Steps to do so are in the detailed [guide](guide.md).
+Also ensure that the service account credentials are accessible in one of the default locations.
+This can be done with `gcloud auth application-default login` or by following the alternate
+steps to do so in the detailed [guide](guide.md).
 
 Then, in your VM, clone this repo:
 
