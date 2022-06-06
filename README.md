@@ -18,8 +18,8 @@ steps to do so in the detailed [guide](guide.md).
 Then, in your VM, clone this repo:
 
 ```
-$ git clone <TODO: replace with repo url>
-$ cd <dir>
+$ git clone git@github.com:GoogleCloudPlatform/opentelemetry-span-metrics.git
+$ cd opentelemetry-span-metrics
 ```
 
 Then set your GCP project environment variable:
